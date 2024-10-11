@@ -1,5 +1,180 @@
-template-repository (1.0-1) unstable; urgency=medium
+golang-github-google-go-github (60.0.0-1) unstable; urgency=medium
 
-  * Initial release
+  * New upstream version 60.0.0
+  * Reorder fields in debian/control and debian/copyright
+  * Update AUTHORS list in debian/copyright
+  * Simplify debian/watch
+  * Use dh-sequence-golang instead of dh-golang and --with=golang
+  * Update versioned dependencies as per go.mod
+  * Drop 0001-Remove-failing-unit-tests-for-Go-1.20-2656.patch
+  * Exclude the new "tools" directory from build
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Anthony Fok <foka@debian.org>  Fri, 15 Mar 2024 04:05:26 -0600
+
+golang-github-google-go-github (48.1.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * Update Standards-Version to 4.6.2 (no changes)
+  * Backport patch for failing unit tests for Go 1.20
+  * Drop dependencies used by scrape package, which is excluded
+  * Update lintian overrides for testdata
+
+ -- Shengjing Zhu <zhsj@debian.org>  Tue, 07 Feb 2023 14:37:04 +0800
+
+golang-github-google-go-github (48.1.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+    - update versioned Depends:
+      golang-github-google-go-cmp-dev (>= 0.5.9~),
+      golang-github-google-go-querystring-dev (>= 1.1.0~)
+
+ -- Drew Parsons <dparsons@debian.org>  Fri, 18 Nov 2022 17:26:36 +0100
+
+golang-github-google-go-github (38.1.0-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since buster (oldstable)
+    * Build-Depends: Drop versioned constraint on dh-golang and
+      golang-google-appengine-dev.
+    * golang-github-google-go-github-dev: Drop versioned constraint on
+      golang-google-appengine-dev in Depends.
+
+  [ Charles Plessy ]
+  * Replace transition package mime-support with media-types (Closes: #1010324)
+
+  [ Shengjing Zhu ]
+  * Update Standards-Version to 4.6.1 (no changes)
+  * Replace mime-support in Build-Depends as well
+  * Remove DH_GOLANG_EXCLUDES_ALL.
+    DH_GOLANG_EXCLUDES_ALL is 1 since debhelper-compat 12
+  * Add Multi-Arch hint
+
+ -- Shengjing Zhu <zhsj@debian.org>  Sun, 06 Nov 2022 16:10:12 +0800
+
+golang-github-google-go-github (38.1.0-1) unstable; urgency=medium
+
+  * New upstream version 38.1.0
+  * Update versioned dependencies:
+    - golang-github-google-go-cmp-dev (>= 0.5.6) (as per go.mod)
+    - golang-any (>= 2:1.13~) (as per README.md)
+  * debian/control:
+    - Change Section from devel to golang
+    - Bump debhelper dependency to "Build-Depends: debhelper-compat (= 13)"
+    - Bump Standards-Version to 4.6.0 (no change)
+  * debian/gbp.conf: Set debian-branch to debian/sid for DEP-14 conformance
+  * Remove 01-bump-version-of-go-github-library.patch which was for v32.1.0
+  * debian/rules: Simplify dh_auto_install override with "-- --no-binaries"
+  * debian/rules:
+    - Exclude the experimental scrape package from build as its go-github
+      version in the import path is not kept up-to-date.
+    - Exclude update-urls as it is failing tests; see
+      https://github.com/google/go-github/issues/2056
+
+ -- Anthony Fok <foka@debian.org>  Fri, 20 Aug 2021 23:15:44 -0600
+
+golang-github-google-go-github (32.1.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * Upload again.
+
+ -- Roger Shimizu <rosh@debian.org>  Sat, 26 Sep 2020 00:40:11 +0900
+
+golang-github-google-go-github (32.1.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * Upload to unstable (Closes: #953723).
+
+ -- Roger Shimizu <rosh@debian.org>  Sun, 20 Sep 2020 19:25:18 +0900
+
+golang-github-google-go-github (32.1.0-1~exp1) experimental; urgency=medium
+
+  * Team upload.
+  * New upstream version 32.1.0
+  * debian/patches:
+    - Replace patch with upstream version.
+
+ -- Roger Shimizu <rosh@debian.org>  Sun, 20 Sep 2020 17:44:13 +0900
+
+golang-github-google-go-github (32.0.0-1~exp1) experimental; urgency=medium
+
+  * Team upload.
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+  * Update standards version to 4.5.0, no changes needed.
+
+  [ Roger Shimizu ]
+  * New upstream version 32.0.0
+    - Add scrape package provides an experimental client for accessing
+      additional GitHub data via screen scraping.
+  * debian/control:
+    - Add B-D: golang-github-google-go-cmp-dev
+               golang-github-pmezard-go-difflib-dev
+               golang-github-puerkitobio-goquery-dev
+               golang-github-xlzd-gotp-dev
+    - Add Rules-Requires-Root: no
+  * debian/lintian-overrides:
+    - Override privacy-breach-generic, since scrape/testdata/*.html is just
+      test data, not real privacy breach.
+  * debian/patches:
+    - Add patch to update the import path of this library itself.
+  * debian/rules:
+    - Remove executable binaries.
+  * debian/watch:
+    - Make the orig tarball filename with the one in archive.
+
+ -- Roger Shimizu <rosh@debian.org>  Thu, 23 Jul 2020 00:35:51 +0900
+
+golang-github-google-go-github (28.1.1-1) unstable; urgency=medium
+
+  [ Afif Elghraoui ]
+  * d/control: specify minimum required version of golang-any.
+    This is necessary to properly build the backport on stretch.
+    The upstream README indicates that go v1.9 or higher is required,
+    and the Debian package has the epoch 2.
+
+  [ Anthony Fok ]
+  * New upstream version 28.1.1
+  * Apply "cme fix dpkg" fixes with manual tweak:
+    - Build-Depends: 'debhelper (>= 11)' → 'debhelper-compat (= 12)
+    - Bump Standards-Version: '4.2.0' → '4.4.1'
+  * Simplify debian/rules with DH_GOLANG_EXCLUDES_ALL
+  * Add versioned dependencies based on go.mod
+  * Remove unused "Files-Excluded: Godeps/_workspace" in debian/control
+  * Remove 0001-Fix-failing-test.patch that was used for 17.0.0
+  * Add dependency on mime-support
+    as TestRepositoriesService_UploadReleaseAsset requires
+    /etc/mime.types to detect text/plain files
+  * Add myself to the list of Uploaders
+
+ -- Anthony Fok <foka@debian.org>  Fri, 01 Nov 2019 11:40:59 -0600
+
+golang-github-google-go-github (17.0.0-1) unstable; urgency=medium
+
+  [ Patrick O'Doherty ]
+  * Initial release (Closes: #820928)
+
+  [ Alexandre Viau ]
+  * Point Vcs-* urls to salsa.debian.org.
+
+  [ Dr. Tobias Quathamer ]
+  * New upstream version 17.0.0
+  * Add d/watch, there are now upstream releases
+  * Update d/copyright
+  * Use debhelper v11
+  * Add patch to fix failing test
+  * Update Standards-Version to 4.2.1
+    - Use Priority optional
+    - Use HTTPS for d/copyright URL
+  * Update maintainer team email address
+  * Add myself as uploader
+  * Update long description
+  * Update Build-Depends and Depends
+  * Install examples
+  * Update d/rules
+
+ -- Dr. Tobias Quathamer <toddy@debian.org>  Tue, 28 Aug 2018 15:26:02 +0200
